@@ -1,0 +1,56 @@
+define = -DPOSRES 
+refcoord_scaling         = COM
+
+integrator               = md
+
+nsteps                   = 50000 ; 
+
+nstlist                  = 10
+dt                       = 0.0005
+constraints              = all-bonds
+constraint-algorithm     = lincs 
+lincs_order              = 4
+
+ns_type                  = grid
+
+coulombtype              = pme
+epsilon_r                = 1
+epsilon_rf               = 78
+rcoulomb                 = 1.0
+rlist                    = 1.0
+
+
+vdwtype=switch
+rvdw_switch              = 0.7
+rvdw                     = 0.9
+
+tcoupl                   = v-rescale
+tc_grps                  = system
+tau_t                    = 2.0
+ref_t                    = 288
+energygrps=system
+
+pcoupl                   =  berendsen
+pcoupltype               =  isotropic
+tau_p                    =  1
+compressibility          =  4.5e-5     ; for water at 1 atm/300 K
+ref_p                    =  1.01325    ; 1 atm in bar
+
+
+comm_grps=system
+comm_mode=linear
+nstcomm=10
+
+gen_vel=yes
+gen_temp                 = 288
+gen_seed=-1
+ld_seed=-1
+
+
+; Output frequency for energies to log file and energy file =
+nstlog                   = 10000 ; every 50 ps
+nstenergy                = 10000
+nstxout                  = 1000000
+nstvout                  = 1000000
+nstxtcout                = 10000
+xtc-precision            = 1000
